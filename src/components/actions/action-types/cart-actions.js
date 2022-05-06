@@ -1,0 +1,8 @@
+
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+
+export const ADD_INCOME_RANGE = 'ADD_INCOME_RANGE';
+export const ADD_INVESTMENT_GOAL = 'ADD_INVESTMENT_GOAL';
+export const ADD_EXPERIENCE_LEVEL = 'ADD_EXPERIENCE_LEVEL';
+export const GET_OPTIONS = 'GET_OPTIONS';
