@@ -39,9 +39,9 @@ open coverage/lcov-report/index.html
 Once application running
 
 1. Complete Wizard requirements
-    i. Income Range
-    ii. Investment Goals
-    iii. Experience Level
+  i. Income Range
+  ii. Investment Goals
+  iii. Experience Level
 2. Once requirements are entered, user will get multiple options to select
 3. User can add multiple options to cart. 
 4. User can remove option from cart if not required. 
