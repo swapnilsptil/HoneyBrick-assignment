@@ -4,7 +4,8 @@ import { ADD_TO_CART,
     ADD_INCOME_RANGE, 
     ADD_INVESTMENT_GOAL, 
     ADD_EXPERIENCE_LEVEL,
-    GET_OPTIONS
+    GET_OPTIONS,
+    RESET_CART
 } from './action-types/cart-actions'
 
 export const addToCart= (id)=>{
@@ -45,5 +46,11 @@ export const removeItem=(id)=>{
     return{
         type: REMOVE_ITEM,
         id
+    }
+}
+
+export const resetCart = () => {
+    return{
+        type: RESET_CART,
     }
 }

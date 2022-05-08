@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Cart from './components/Cart'
@@ -9,10 +9,10 @@ const App = () => {
         <BrowserRouter>
             <div className="App">
                 <Navbar />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/cart" component={Cart} />
-                </Switch>
+                <Routes>
+                    <Route exact path="/" element={<Home />} />
+                    <Route path="/cart" element={<Cart />} />
+                </Routes>
             </div>
         </BrowserRouter>
 
