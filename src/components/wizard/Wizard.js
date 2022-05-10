@@ -9,18 +9,20 @@ import IncomeRange from '../incomeRange/IncomeRange';
 import InvestmentGoal from '../investmentGoal/InvestmentGoal';
 import ExperienceLevel from '../experienceLevel/ExperienceLevel';
 import { Container } from '@mui/material';
-import { connect } from 'react-redux';
+import { ExperienceAtom, IncomeRangeAtom, SelectedInvestmentGoalAtom } from '../../atoms/Atoms';
+import { useRecoilValue } from 'recoil';
 
 const steps = ['Income Range', 'Primary Investment Goal', 'Experience Level'];
 
 const Wizard = ({
-    selectedInvestmentGoal, 
-    experienceLevel,
-    range,
     onFinish
 }) => {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+
+    const IncomeRangeState = useRecoilValue(IncomeRangeAtom);
+    const SelectedInvestmentGoalState = useRecoilValue(SelectedInvestmentGoalAtom);
+    const experienceLevel = useRecoilValue(ExperienceAtom);
 
     const handleNext = () => {
         let newSkipped = skipped;
@@ -40,10 +42,10 @@ const Wizard = ({
 
     const isDisabled = () => {
         if(activeStep === 0) {
-            return range.length === 0;
+            return IncomeRangeState.length === 0;
         }
         if(activeStep === 1) {
-            return selectedInvestmentGoal.length === 0;
+            return SelectedInvestmentGoalState.length === 0;
         }
         if(activeStep === 2) {
             return experienceLevel.length === 0;
@@ -104,12 +106,4 @@ const Wizard = ({
     );
 }
 
-const mapStateToProps = (state)=>{
-    return {
-        selectedInvestmentGoal: state.selectedInvestmentGoal,
-        experienceLevel: state.experienceLevel,
-        range: state.incomeRange
-    }
-  }
-
-export default connect(mapStateToProps)(Wizard);
+export default Wizard;

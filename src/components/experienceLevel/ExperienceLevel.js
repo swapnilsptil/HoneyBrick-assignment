@@ -1,29 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addExperienceLevel } from '../actions/cartActions';
+import { useRecoilState } from 'recoil';
 import Tiles from '../tiles/Index';
+import { ExperienceAtom } from '../../atoms/Atoms';
 
-const ExperienceLevel = ({experienceLevel, addExperienceLevel}) => {
+const ExperienceLevel = () => {
     const IncomeRangeArr = ['Beginner', 'Intermediate', 'Expert'];
+    const [experienceAtomState, setExperienceAtomState] = useRecoilState(ExperienceAtom);
 
     return (
         <Tiles 
             items={IncomeRangeArr} 
-            onClick={addExperienceLevel} 
-            selectedItems={experienceLevel} 
+            onClick={setExperienceAtomState} 
+            selectedItems={experienceAtomState}
+            testId='experience-test-id'
         />
     )
 }
 
-const mapStateToProps = (state)=>{
-    return {
-      experienceLevel: state.experienceLevel
-    }
-  }
-const mapDispatchToProps= (dispatch)=>{
-    return{
-        addExperienceLevel: (expLevel)=>{dispatch(addExperienceLevel(expLevel))}
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(ExperienceLevel);
+export default ExperienceLevel;

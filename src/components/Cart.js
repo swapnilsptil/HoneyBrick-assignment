@@ -1,17 +1,23 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { connect } from 'react-redux';
-import { removeItem } from './actions/cartActions';
+import { useRecoilState } from 'recoil';
+import { CartItemsAtom } from '../atoms/Atoms';
 import Checkout from './Checkout';
 
 const Cart = ({
-    removeItem,
     items
 }) => {
 
-    let cartItems = items.length ?
+    const [cartItems, setCartItems] = useRecoilState(CartItemsAtom);
+
+    const removeItem = (id) => {
+        const new_items = cartItems.filter(item => id !== item.id);
+        setCartItems(new_items);
+    }
+
+    let cartItemsList = cartItems.length ?
         (
-            items.map(item => {
+            cartItems.map(item => {
                 return (
                     <Grid key={item.id} item>
                         <Card sx={{ maxWidth: 345 }}>
@@ -52,7 +58,7 @@ const Cart = ({
                 <ul className="collection">
                     <h3>Added Offers</h3>
                     <Grid container justifyContent="center" spacing={2}>
-                        {cartItems}
+                        {cartItemsList}
                     </Grid>
                 </ul>
             </div>
@@ -61,14 +67,4 @@ const Cart = ({
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        items: state.cartItems,
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        removeItem: (id) => { dispatch(removeItem(id)) },
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default Cart;

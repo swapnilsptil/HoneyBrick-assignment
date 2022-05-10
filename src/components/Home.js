@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { addToCart } from './actions/cartActions';
 import Wizard from './wizard/Wizard';
 import Offers from './Offers';
 import { Grid } from '@mui/material';
+import { useRecoilValue } from 'recoil';
+import { ExperienceAtom, SelectedInvestmentGoalAtom } from '../atoms/Atoms';
 
-const Home = ({
-    addToCart,
-    items,
-    selectedInvestmentGoal,
-    experienceLevel
-}) => {
+const Home = () => {
+
+    const selectedInvestmentGoal = useRecoilValue(SelectedInvestmentGoalAtom);
+    const experienceLevel = useRecoilValue(ExperienceAtom);
+
     const isGoalsAvailable = selectedInvestmentGoal.length > 0 && experienceLevel.length > 0;
     const [showWizard, setShowWizard] = useState(!isGoalsAvailable);
 
-    const handleClick = (id) => {
-        addToCart(id);
-    }
 
     return (
         <div className="container">
@@ -24,7 +20,7 @@ const Home = ({
                 {
                     !showWizard && <>
                         <Grid container justifyContent="center" spacing={2}>
-                            <Offers items={items} handleClick={handleClick} />
+                            <Offers />
                         </Grid>
                     </>
                 }
@@ -36,17 +32,5 @@ const Home = ({
         </div>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-        items: state.items,
-        selectedInvestmentGoal: state.selectedInvestmentGoal,
-        experienceLevel: state.experienceLevel
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addToCart: (id) => { dispatch(addToCart(id)) }
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home;

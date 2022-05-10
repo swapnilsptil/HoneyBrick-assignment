@@ -4,7 +4,8 @@ import React from 'react';
 export default function Tiles({
     items,
     onClick,
-    selectedItems
+    selectedItems,
+    testId
 }) {
 
     const isItemsArray = Array.isArray(selectedItems);
@@ -13,7 +14,11 @@ export default function Tiles({
             {items.map((value, index) => (
                 <Grid key={index} item>
                     <Paper
+                        data-testid={`${testId}-${index}`}
                         onClick={() => onClick(value)}
+                        className={isItemsArray ?
+                            selectedItems.findIndex(item => item.id === value.id) !== -1 ? 'ABC' : '' :
+                            selectedItems === value ? 'ABC' : ''}
                         sx={{
                             padding: '25px',
                             backgroundColor: (theme) => isItemsArray ?

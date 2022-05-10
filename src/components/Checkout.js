@@ -1,26 +1,25 @@
 import React, {useState} from 'react'
 import { Button, Container, TextField } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { connect } from 'react-redux';
-import { resetCart } from './actions/cartActions';
+import { useRecoilValue } from 'recoil';
+import { CartItemsAtom } from '../atoms/Atoms';
 
-const Recipe = ({
-    state,
-    resetCart
-}) => {
+const Recipe = () => {
 
     const [email, setEmail] = useState('');
     const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     const navigate = useNavigate();
     const isValidEmail = email.length > 0 && !pattern.test(email);
+    const cartItems = useRecoilValue(CartItemsAtom);
 
     const onCheckoutClick = () => {
-        const { cartItems } = state;
-        alert(JSON.stringify({...cartItems, email}));
+        const tempHoneyBrickData = JSON.parse(localStorage?.getItem('HoneyBrickData'))
+        alert(JSON.stringify({...tempHoneyBrickData, email}));
     }
 
     const onResetCart = () => {
-        resetCart();
+        // resetCart();
+        localStorage.removeItem('HoneyBrickData');
         navigate("/");
     }
 
@@ -41,7 +40,7 @@ const Recipe = ({
                         variant="contained" 
                         sx={{marginLeft: '10px'}} 
                         onClick={onResetCart}
-                        disabled={state?.cartItems?.length === 0}
+                        disabled={cartItems?.length === 0}
                     >Reset Cart</Button>
                 </Container>
             </Container>
@@ -49,17 +48,4 @@ const Recipe = ({
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-}
-
-const mapDispatchToProps= (dispatch)=>{
-    return{
-        resetCart: ()=>{dispatch(resetCart())}
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Recipe)
+export default Recipe;

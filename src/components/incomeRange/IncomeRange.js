@@ -1,29 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { addIncomeRange } from '../actions/cartActions';
+import { useRecoilState } from 'recoil';
+import { IncomeRangeAtom } from '../../atoms/Atoms';
 import Tiles from '../tiles/Index';
 
-const IncomeRange = ({ range, addIncomeRange }) => {
+const IncomeRange = () => {
     const IncomeRangeArr = ['100k', '150k', '250k'];
+    const [IncomeRangeState, setIncomeRangeState] = useRecoilState(IncomeRangeAtom);
 
     return (
         <Tiles 
             items={IncomeRangeArr} 
-            onClick={addIncomeRange} 
-            selectedItems={range} 
+            onClick={setIncomeRangeState} 
+            selectedItems={IncomeRangeState} 
         />
     )
 }
 
-const mapStateToProps = (state)=>{
-    return {
-      range: state.incomeRange
-    }
-  }
-const mapDispatchToProps= (dispatch)=>{
-    return{
-        addIncomeRange: (range)=>{dispatch(addIncomeRange(range))}
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(IncomeRange);
+export default IncomeRange;
