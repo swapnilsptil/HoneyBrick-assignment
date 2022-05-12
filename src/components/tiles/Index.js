@@ -16,9 +16,6 @@ export default function Tiles({
                     <Paper
                         data-testid={`${testId}-${index}`}
                         onClick={() => onClick(value)}
-                        className={isItemsArray ?
-                            selectedItems.findIndex(item => item.id === value.id) !== -1 ? 'ABC' : '' :
-                            selectedItems === value ? 'ABC' : ''}
                         sx={{
                             padding: '25px',
                             backgroundColor: (theme) => isItemsArray ?
@@ -26,7 +23,13 @@ export default function Tiles({
                             selectedItems === value ? '#868d94' : '#fff',
                         }}
                     >
-                        {isItemsArray ? value.title : value}
+                        <span className={
+                            isItemsArray ?
+                            selectedItems.findIndex(item => item.id === value.id) !== -1 ? 'Selected' : '' :
+                            selectedItems === value ? 'Selected' : ''
+                        }>
+                            {isItemsArray ? value.title : value}
+                        </span>
                     </Paper>
                 </Grid>
             ))}

@@ -12,23 +12,19 @@ import { Container } from '@mui/material';
 import { ExperienceAtom, IncomeRangeAtom, SelectedInvestmentGoalAtom } from '../../atoms/Atoms';
 import { useRecoilValue } from 'recoil';
 
-const steps = ['Income Range', 'Primary Investment Goal', 'Experience Level'];
 
 const Wizard = ({
     onFinish
 }) => {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
+    const steps = ['Income Range', 'Primary Investment Goal', 'Experience Level'];
 
+    const [activeStep, setActiveStep] = React.useState(0);
     const IncomeRangeState = useRecoilValue(IncomeRangeAtom);
     const SelectedInvestmentGoalState = useRecoilValue(SelectedInvestmentGoalAtom);
     const experienceLevel = useRecoilValue(ExperienceAtom);
 
     const handleNext = () => {
-        let newSkipped = skipped;
-
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
         if(activeStep === 2) {
             onFinish();
         }
@@ -90,12 +86,13 @@ const Wizard = ({
                                 disabled={activeStep === 0}
                                 onClick={handleBack}
                                 sx={{ mr: 1 }}
+                                data-testid={'wizard-back-btn'}
                             >
                                 Back
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
                         
-                            <Button onClick={handleNext} disabled={isDisabled()}>
+                            <Button onClick={handleNext} disabled={isDisabled()} data-testid={'wizard-next-btn'}>
                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>
                         </Box>

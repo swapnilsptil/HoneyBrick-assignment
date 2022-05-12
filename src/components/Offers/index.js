@@ -11,7 +11,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 const Offers = () => {
 
-    
     const availableGoals = useRecoilValue(getOffersSelector);
     const items = useRecoilValue(ItemsAtom);
     const [cartItems, setCartItems] = useRecoilState(CartItemsAtom);
@@ -59,6 +58,7 @@ const Offers = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button 
+                                        data-testid={`offer-btn-${item.id}`}
                                         size="small" 
                                         onClick={() => onClick(item.id, foundIdx) }
                                     >
@@ -73,19 +73,5 @@ const Offers = () => {
         </>
     )
 }
-
-// const mapStateToProps = (state)=>{
-//     return{
-//         availableGoals: state.availableGoals,
-//         cartItems: state.cartItems,
-//     }
-// }
-// const mapDispatchToProps = (dispatch)=>{
-//     return{
-//         getOptions: ()=>{dispatch(getOptions())},
-//         removeItem: (id) => { dispatch(removeItem(id)) },
-//     }
-// }
-// export default connect(mapStateToProps,mapDispatchToProps)(Offers)
 
 export default Offers;

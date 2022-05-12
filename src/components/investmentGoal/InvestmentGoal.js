@@ -9,9 +9,7 @@ const InvestmentGoal = () => {
     const [selectedInvestmentGoal, setSelectedInvestmentGoal] = useRecoilState(SelectedInvestmentGoalAtom);
     
     const onInvestGoalSelection = (actionInvestmentGoal) => {
-
         const index = selectedInvestmentGoal.findIndex(item => item.id === actionInvestmentGoal.id);
-
         if (index === -1) {
             setSelectedInvestmentGoal([...selectedInvestmentGoal, actionInvestmentGoal]);
         } else {

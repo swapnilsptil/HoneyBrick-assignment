@@ -37,6 +37,7 @@ const Cart = ({
                             </CardContent>
                             <CardActions>
                                 <Button
+                                    data-testid='remove-item-btn'
                                     size="small"
                                     onClick={() => removeItem(item.id)}
                                 >

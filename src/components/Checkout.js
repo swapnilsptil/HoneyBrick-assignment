@@ -18,7 +18,6 @@ const Recipe = () => {
     }
 
     const onResetCart = () => {
-        // resetCart();
         localStorage.removeItem('HoneyBrickData');
         navigate("/");
     }
@@ -27,7 +26,9 @@ const Recipe = () => {
         <div className="container">
             <Container maxWidth="sm" sx={{marginTop: '100px', display: 'flex'}}>
                 <TextField
+                    data-testid='email-id-field'
                     error={isValidEmail}
+                    placeholder='Enter Email id'
                     id="outlined-error-helper-text"
                     label="Email Id"
                     helperText={isValidEmail && "Enter Valid Email"}
@@ -35,8 +36,9 @@ const Recipe = () => {
                     fullWidth={true}
                 />
                 <Container maxWidth="sm" sx={{marginTop: '10px'}}>
-                    <Button disabled={email.length === 0 || isValidEmail} variant="contained" onClick={onCheckoutClick}>Checkout</Button> 
+                    <Button data-testid='checkout-btn' disabled={email.length === 0 || isValidEmail} variant="contained" onClick={onCheckoutClick}>Checkout</Button> 
                     <Button 
+                        data-testid='reset-cart'
                         variant="contained" 
                         sx={{marginLeft: '10px'}} 
                         onClick={onResetCart}
